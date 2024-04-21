@@ -1,14 +1,10 @@
-import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Image, ScrollView } from "react-native";
 import Card from "./Card";
 import { useGetPokemon } from "../../api";
-import { notifyManager } from "@tanstack/react-query";
 interface CardItem {
   id: string;
   name: string;
   images: { small: string; large: string };
-  //   number: string;
-  //   hp: string;
-  //   supertype: string;
 }
 interface CardListData {
   count: number;
@@ -18,7 +14,7 @@ interface CardListData {
 export default function List() {
   const cards = useGetPokemon<CardListData>({
     url: "cards",
-    params: { pageSize: "15", page: "1", select: "id,name,images" },
+    params: { pageSize: "10", page: "1", select: "id,name,images" },
   });
   const { data, count, totalCount } = cards.data.res;
   return (
@@ -35,8 +31,6 @@ export default function List() {
                   source={{ uri: item.images.small }}
                   style={styles.cardImage}
                 />
-                {/* <Text>{item.supertype}</Text>
-              <Text>HP:{item.hp}</Text> */}
               </View>
             }
           />
