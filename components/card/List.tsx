@@ -1,6 +1,7 @@
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import Card from "./Card";
 import { useGetPokemon } from "../../api";
+import { setDetailId } from "../../stores/useScreenNav";
 interface CardItem {
   id: string;
   name: string;
@@ -11,7 +12,7 @@ interface CardListData {
   data: CardItem[];
   totalCount: number;
 }
-export default function List() {
+export default function List(props: { onNavigate: () => void }) {
   const cards = useGetPokemon<CardListData>({
     url: "cards",
     params: { pageSize: "10", page: "1", select: "id,name,images" },
@@ -24,7 +25,10 @@ export default function List() {
           <Card
             key={item.id}
             title={item.name}
-            onClickDetail={() => {}}
+            onClickDetail={() => {
+              props.onNavigate();
+              setDetailId(item.id);
+            }}
             content={
               <View>
                 <Image

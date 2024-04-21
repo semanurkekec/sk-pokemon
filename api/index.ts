@@ -28,5 +28,8 @@ export function useGetPokemon<T = unknown>(config: GetConfig) {
         throw new Error("get pokemon error");
       });
   }
-  return useSuspenseQuery({ queryKey: ["pokemon", config], queryFn });
+  return useSuspenseQuery({
+    queryKey: ["pokemon", config.url, config],
+    queryFn,
+  });
 }

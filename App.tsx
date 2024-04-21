@@ -1,22 +1,22 @@
-import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { Card, PokemonList } from "./components";
-import { useGetPokemon } from "./api";
-import { Suspense } from "react";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Main from "./screens/Main";
+import Detail from "./screens/Detail";
 
 const queryClient = new QueryClient();
-
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>GOTTA CATCH 'EM ALL!</Text>
-        <Suspense fallback={<Text>loading</Text>}>
-          <PokemonList />
-        </Suspense>
-        <StatusBar style="auto" />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="main" component={Main} />
+          <Stack.Screen name="detail" component={Detail} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </QueryClientProvider>
   );
 }
