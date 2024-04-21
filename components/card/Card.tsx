@@ -1,16 +1,20 @@
 import { ReactNode } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 interface CardProps {
   title: string;
   content: ReactNode;
+  onClickDetail?: () => void;
 }
 
 export default function Card(props: CardProps) {
-  const { title, content } = props;
+  const { title, content, onClickDetail } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <View>
+        <Text style={styles.title}>{title}</Text>
+        <Button title="details" onPress={onClickDetail} />
+      </View>
       {content}
     </View>
   );
@@ -23,6 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
     padding: 16,
+    flexDirection: "row",
   },
   title: {
     fontWeight: "400",
