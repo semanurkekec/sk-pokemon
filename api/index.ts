@@ -18,7 +18,6 @@ async function pokemonGet(config: GetConfig) {
 }
 
 export function useGetPokemon<T = unknown>(config: GetConfig) {
-  // const queryFn = axios.request(options)
   async function queryFn() {
     return await pokemonGet(config)
       .then((response) => ({
